@@ -11,7 +11,7 @@ namespace ChatClient
     public class Client
     {
         private TcpClient client = new TcpClient();
-        private readonly IPAddress address = IPAddress.Parse("192.168.1.105");
+        private readonly IPAddress address = IPAddress.Parse("192.168.0.31");
         private StreamReader sReader;
 
         public Client(string username)
@@ -25,12 +25,12 @@ namespace ChatClient
 
         public void SendMessage(string message)
         {
-            SendToServer(message);
+            new Thread(() => SendToServer(message)).Start();
         }
 
         private void SetUsername(string username)
         {
-            SendToServer(username);
+            SendMessage(username);
         }
 
         public string ReceiveFromServer()
