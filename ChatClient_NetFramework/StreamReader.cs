@@ -52,6 +52,7 @@ namespace ChatClient
             if (CheckRemaining())
             {
                 dataFromClient = remaining;
+                remaining = null;
                 return GetBytesFromData(length);
             }
 

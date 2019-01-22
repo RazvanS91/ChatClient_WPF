@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ChatClient_NetFramework">
+      <HintPath>..\ChatClient_NetFramework\bin\Debug\ChatClient_NetFramework.exe</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -93,12 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\ChatClient_NetFramework\ChatClient_NetFramework\ChatClient_NetFramework.csproj">
-      <Project>{710b2961-0537-4f26-9264-790a4d9dbb6a}</Project>
-      <Name>ChatClient_NetFramework</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Windows Unlock.wav" />

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatClient_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Closing="Window_Closing">
     <Grid>
         <TextBox HorizontalAlignment="Left" Name="Message" Height="20" TextWrapping="Wrap"  VerticalAlignment="Top" Width="620" Margin="25,385,0,0" KeyUp="Message_KeyUp"/>
         <Button Content="Send" Name="SendBtn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Height ="20" Margin="692,385,0,0" Click="Send_Click"/>

@@ -18,21 +18,22 @@ namespace ChatClient_WPF
         {
             InitializeComponent();
             SendBtn.IsEnabled = false;
+            ChatPage.IsReadOnly = true;
+            Username.Focus();
             DisconnectBtn.Visibility = Visibility.Hidden;
             ChatPage.VerticalScrollBarVisibility = System.Windows.Controls.ScrollBarVisibility.Visible;
-            ChatPage.IsReadOnly = true;
         }
 
 
         private void Send_Click(object sender, RoutedEventArgs e)
         {
-            ValidateAndSendMessage();
+            ValidateAndSendMessage(Message.Text);
         }
 
-        private void ValidateAndSendMessage()
+        private void ValidateAndSendMessage(string message)
         {
-            if (!String.IsNullOrWhiteSpace(Message.Text))
-                client.SendMessage(Message.Text);
+            if (!String.IsNullOrWhiteSpace(message))
+                client.SendMessage(message);
             Message.Text = null;
             Message.Focus();
         }
@@ -62,8 +63,9 @@ namespace ChatClient_WPF
                 SendBtn.IsEnabled = true;
                 client = new Client(Username.Text);
                 isConnected = true;
+                Username.IsEnabled = false;
                 new Thread(GetMessageFromServer).Start();
-                
+
                 SuccessMsg.Text = $"Welcome {Username.Text}. You are connected !";
                 SuccessMsg.Visibility = Visibility.Visible;
                 DisconnectBtn.Visibility = Visibility.Visible;
@@ -75,10 +77,10 @@ namespace ChatClient_WPF
 
         private void Disconnect_Click(object sender, RoutedEventArgs e)
         {
+            ValidateAndSendMessage($"{Username.Text} is now offline !");
             new Thread(() => client.Disconnect()).Start();
             isConnected = false;
             DisconnectBtn.IsEnabled = false;
-            Connect.IsEnabled = true;
             SendBtn.IsEnabled = false;
             SuccessMsg.Visibility = Visibility.Hidden;
         }
@@ -87,8 +89,14 @@ namespace ChatClient_WPF
         {
             if (e.Key == System.Windows.Input.Key.Enter && SendBtn.IsEnabled == true)
             {
-                ValidateAndSendMessage();
+                ValidateAndSendMessage(Message.Text);
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(isConnected)
+                Disconnect_Click(this, new RoutedEventArgs());
         }
     }
 }
